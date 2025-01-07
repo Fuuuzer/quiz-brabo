@@ -1,6 +1,7 @@
 const container = document.querySelector('main');
 const title = document.querySelector('.question-title');
 const options = document.querySelector('.options');
+const points = document.querySelector('.points');
 
 class Question {
   constructor(question, options, correctAnswer) {
@@ -30,6 +31,14 @@ const quizQuestions = [
 ]
 
 let currentQuestionIndex = 0;
+let tries = 3;
+let acertos = 0;
+let erros = 0;
+
+function updatePoints() {
+  acertos++;
+  points.innerText = `Pontos: ${acertos}`
+}
 
 function displayQuestion() {
   const question = quizQuestions[currentQuestionIndex]
@@ -46,13 +55,26 @@ function displayQuestion() {
     const options = document.querySelectorAll('.option');
     options.forEach((option, i) => {
       option.addEventListener('click', function() {
-        if(!question.isCorrect(i)) {      
+        if(!question.isCorrect(i)) {
+          erros++;
+          if(erros === 3) {
+            erros = 0;
+            acertos = 0;
+            currentQuestionIndex = 0;
+            setTimeout(() => {
+              displayQuestion()
+              updatePoints()
+            }, 1500);
+          }
+          console.log(erros)
+
           option.classList.toggle('red');
           setTimeout(() => {
             displayQuestion()
           }, 1500)
-        } else {
+        } else {      
           option.classList.toggle('green');
+          updatePoints()
           setTimeout(() => {
             nextQuestion();
           }, 1500)
