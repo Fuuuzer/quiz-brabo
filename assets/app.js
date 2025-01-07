@@ -19,22 +19,40 @@ const quizQuestions = [
    new Question('Por que a maçã é vermelha?', ['Jonas broter', 'ohayoo', 'asuidfhsdfh', 'maçã'], 3)
 ]
 
-quizQuestions.forEach((question, index) => {
-container.innerHTML = `
-  <div class="question">
-    <!-- <p class="question-number">Pergunta 1</p> -->
-    <h3 class="question-title">${question.question}</h2>
-  </div>
+let currentQuestionIndex = 0;
 
-  <ul class="options">
-    ${question.options.map((option, i) => `<li class="option" data-index="${i}">${option}</li>`).join('')}
-  </ul>`;
+function displayQuestion() {
+  const question = quizQuestions[currentQuestionIndex]
+  quizQuestions.forEach((question, index) => {
+  container.innerHTML = `
+    <div class="question">
+      <!-- <p class="question-number">Pergunta 1</p> -->
+      <h3 class="question-title">${question.question}</h2>
+    </div>
 
-  const options = document.querySelectorAll('.option');
-  options.forEach((option, i) => {
-    option.addEventListener('click', function() {
-      console.log(`${question.isCorrect(i)}`)
-      const selectedIndex = parseInt(this.getAttribute('data-index'));
+    <ul class="options">
+      ${question.options.map((option, index) => `<li class="option" data-index="${index}">${option}</li>`).join('')}
+    </ul>`;
+
+    const options = document.querySelectorAll('.option');
+    options.forEach((option, i) => {
+      option.addEventListener('click', function() {
+        if(!question.isCorrect(i)) {      
+          option.classList.toggle('red');
+        } else {
+          option.classList.toggle('green');
+          setTimeout(() => {
+            nextQuestion();
+          }, 2000)
+        }
+      })
     })
-  })
-});
+  });
+}
+
+function nextQuestion() {
+  currentQuestionIndex = (currentQuestionIndex + 1) % quizQuestions.length;
+  displayQuestion()
+}
+
+displayQuestion()

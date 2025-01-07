@@ -55,3 +55,18 @@ main {
 .option:hover {
   background: #00000033;
 }
+
+.green {
+  background-color: #16751e;
+}
+
+.red {
+  background-color: #ce3939;
+}
+.red:hover {
+  background-color: #ce3939;
+}
+
+.green:hover {
+  background-color: #16751e;
+}
