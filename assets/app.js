@@ -35,9 +35,13 @@ let tries = 3;
 let acertos = 0;
 let erros = 0;
 
-function updatePoints() {
-  acertos++;
-  points.innerText = `Pontos: ${acertos}`
+function updatePoints(currentPoints) {
+  acertos++; 
+  if (currentPoints === 0) {
+    points.innerText = `Pontos: ${currentPoints}`;
+  } else {
+    points.innerText = `Pontos: ${acertos}`;
+  }
 }
 
 function displayQuestion() {
@@ -57,13 +61,13 @@ function displayQuestion() {
       option.addEventListener('click', function() {
         if(!question.isCorrect(i)) {
           erros++;
-          if(erros === 3) {
+          if(erros === 4) {
             erros = 0;
             acertos = 0;
             currentQuestionIndex = 0;
             setTimeout(() => {
               displayQuestion()
-              updatePoints()
+              updatePoints(0)
             }, 1500);
           }
           console.log(erros)
