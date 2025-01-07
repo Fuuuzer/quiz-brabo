@@ -22,7 +22,7 @@ const quizQuestions = [
    new Question('Quem pintou a Mona Lisa?', ['Pablo Picasso', 'Vincent van Gogh', 'Leonardo da Vinci', 'Michelangelo'], 2),
    new Question('Qual é o maior planeta do sistema solar?', ['Terra', 'Marte', 'Júpiter', 'Saturno'], 2),
    new Question('Em que ano o homem pisou na Lua pela primeira vez?', ['1969', '1971', '1955', '1983'], 0),
-   new Question('Quantos continentes existem no planeta?', ['5', '6', '7', '8'], 2),
+   new Question('Quantos continentes existem no planeta?', ['5', '6', '7', '8'], 1),
    new Question('Quem escreveu "Dom Casmurro"?', ['Machado de Assis', 'Clarice Lispector', 'Monteiro Lobato', 'José de Alencar'], 0),
    new Question('Qual é o símbolo químico do ouro?', ['Au', 'Ag', 'Fe', 'O'], 0),
    new Question('Quem foi o primeiro presidente dos Estados Unidos?', ['Abraham Lincoln', 'George Washington', 'Thomas Jefferson', 'John Adams'], 1),
@@ -36,10 +36,10 @@ let acertos = 0;
 let erros = 0;
 
 function updatePoints(currentPoints) {
-  acertos++; 
   if (currentPoints === 0) {
     points.innerText = `Pontos: ${currentPoints}`;
   } else {
+    acertos++; 
     points.innerText = `Pontos: ${acertos}`;
   }
 }
@@ -56,12 +56,19 @@ function displayQuestion() {
       ${question.options.map((option, index) => `<li class="option" data-index="${index}">${option}</li>`).join('')}
     </ul>`;
 
+    let answered = false;
+
     const options = document.querySelectorAll('.option');
     options.forEach((option, i) => {
       option.addEventListener('click', function() {
+
+        if (answered) return;
+        answered = true;
+        // lógica para retornar a função
+
         if(!question.isCorrect(i)) {
           erros++;
-          if(erros === 4) {
+          if(erros === 1) {
             erros = 0;
             acertos = 0;
             currentQuestionIndex = 0;
@@ -70,7 +77,6 @@ function displayQuestion() {
               updatePoints(0)
             }, 1500);
           }
-          console.log(erros)
 
           option.classList.toggle('red');
           setTimeout(() => {
@@ -83,13 +89,18 @@ function displayQuestion() {
             nextQuestion();
           }, 1500)
         }
+
       })
     })
 }
 
 function nextQuestion() {
-  currentQuestionIndex = (currentQuestionIndex + 1) % quizQuestions.length;
-  displayQuestion()
+  currentQuestionIndex++;
+  if(currentQuestionIndex === 1) {
+    container.innerHTML = `<h1 class="title-final">Quiz finalizado</h1>`
+  } else {
+    displayQuestion()
+  }
 }
 
 displayQuestion()
