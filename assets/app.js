@@ -19,14 +19,6 @@ const quizQuestions = [
    new Question('Por que a maçã é vermelha?', ['Jonas broter', 'ohayoo', 'asuidfhsdfh', 'maçã'], 3)
 ]
 
-// quizQuestions.forEach((question, index) => {
-//   console.log(`Pergunta ${index + 1}: ${question.question}`);
-//   console.log('Opções:');
-//   question.options.forEach((option, i) => {
-//     console.log(`${i + 1}. ${option}`)
-//   })
-// });
-
 quizQuestions.forEach((question, index) => {
 container.innerHTML = `
   <div class="question">
@@ -35,6 +27,14 @@ container.innerHTML = `
   </div>
 
   <ul class="options">
-    ${question.options.map((option, i) => `<li class="option">${option}</li>`).join('')}
+    ${question.options.map((option, i) => `<li class="option" data-index="${i}">${option}</li>`).join('')}
   </ul>`;
+
+  const options = document.querySelectorAll('.option');
+  options.forEach((option, i) => {
+    option.addEventListener('click', function() {
+      console.log(`${question.isCorrect(i)}`)
+      const selectedIndex = parseInt(this.getAttribute('data-index'));
+    })
+  })
 });
