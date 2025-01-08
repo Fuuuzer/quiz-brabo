@@ -1,38 +1,38 @@
+import { quizQuestions } from "./quiz-questions.js";
+
 const container = document.querySelector('main');
 const title = document.querySelector('.question-title');
 const options = document.querySelector('.options');
 const points = document.querySelector('.points');
-
-class Question {
-  constructor(question, options, correctAnswer) {
-    this.question = question;
-    this.options = options;
-    this.correctAnswer = correctAnswer;
-  }
-
-  isCorrect(userAnswer) {
-    return userAnswer === this.correctAnswer
-  }
-};
-
-const quizQuestions = [
-  //  new Question('Por que a banana é amarela?', ['Sei la poar', 'Pq deus quis', 'Macacoo', 'A banana madura consegue esse tom amarelado devido ao envelhecimento da clorofila'], 3),
-  //  new Question('Por que a maçã é vermelha?', ['Jonas broter', 'ohayoo', 'asuidfhsdfh', 'maçã'], 3),
-   new Question('Qual é a capital do Brasil?', ['São Paulo', 'Rio de Janeiro', 'Brasília', 'Salvador'], 2),
-   new Question('Quem pintou a Mona Lisa?', ['Pablo Picasso', 'Vincent van Gogh', 'Leonardo da Vinci', 'Michelangelo'], 2),
-   new Question('Qual é o maior planeta do sistema solar?', ['Terra', 'Marte', 'Júpiter', 'Saturno'], 2),
-   new Question('Em que ano o homem pisou na Lua pela primeira vez?', ['1969', '1971', '1955', '1983'], 0),
-   new Question('Quantos continentes existem no planeta?', ['5', '6', '7', '8'], 1),
-   new Question('Quem escreveu "Dom Casmurro"?', ['Machado de Assis', 'Clarice Lispector', 'Monteiro Lobato', 'José de Alencar'], 0),
-   new Question('Qual é o símbolo químico do ouro?', ['Au', 'Ag', 'Fe', 'O'], 0),
-   new Question('Quem foi o primeiro presidente dos Estados Unidos?', ['Abraham Lincoln', 'George Washington', 'Thomas Jefferson', 'John Adams'], 1),
-   new Question('Qual é o idioma mais falado no mundo?', ['Inglês', 'Mandarim', 'Espanhol', 'Francês'], 1),
-   new Question('Quem descobriu a teoria da relatividade?', ['Isaac Newton', 'Albert Einstein', 'Galileu Galilei', 'Nikola Tesla'], 1)
-]
+const btnStart = document.querySelector('.btn');
+const inputUser = document.querySelector('.input-username');
+const containerStart = document.querySelector ('.container-start')
 
 let currentQuestionIndex = 0;
 let acertos = 0;
 let erros = 0;
+let errorMessage = containerStart.querySelector('.error-message');
+
+// console.log(inputUser)
+
+btnStart.addEventListener('click', () => {
+  if (inputUser.value === '') {
+    if (!errorMessage) {
+      errorMessage = document.createElement('p');
+      errorMessage.classList.add('error-message');
+      containerStart.appendChild(errorMessage)
+    }
+    errorMessage.innerText = 'É necessário digitar um nome'
+    containerStart.appendChild(notUsername)
+    } else {
+    if (errorMessage) {
+      errorMessage.remove()
+    }
+    displayQuestion()
+    updatePoints(0)
+  }
+
+});
 
 function updatePoints(currentPoints) {
   if (currentPoints === 0) {
@@ -44,10 +44,10 @@ function updatePoints(currentPoints) {
 }
 
 function displayQuestion() {
-  const question = quizQuestions[currentQuestionIndex]
+  const question = quizQuestions[currentQuestionIndex];
+
   container.innerHTML = `
     <div class="question">
-      <!-- <p class="question-number">Pergunta 1</p> -->
       <h3 class="question-title">${question.question}</h2>
     </div>
 
@@ -93,7 +93,7 @@ function displayQuestion() {
     })
 }
 
-function nextQuestion(err) {
+function nextQuestion() {
   currentQuestionIndex++;
   if(currentQuestionIndex < quizQuestions.length) {
     displayQuestion()
@@ -102,5 +102,3 @@ function nextQuestion(err) {
      <p>Parabéns, você fez ${acertos} pontos</p>`
   }
 }
-
-displayQuestion()
