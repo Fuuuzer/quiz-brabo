@@ -31,7 +31,6 @@ const quizQuestions = [
 ]
 
 let currentQuestionIndex = 0;
-let tries = 3;
 let acertos = 0;
 let erros = 0;
 
@@ -64,11 +63,11 @@ function displayQuestion() {
 
         if (answered) return;
         answered = true;
-        // lógica para retornar a função
+        // lógica para o usuario nao poder clicar varias x
 
         if(!question.isCorrect(i)) {
           erros++;
-          if(erros === 1) {
+          if(erros === 2) {
             erros = 0;
             acertos = 0;
             currentQuestionIndex = 0;
@@ -82,7 +81,7 @@ function displayQuestion() {
           setTimeout(() => {
             displayQuestion()
           }, 1500)
-        } else {      
+        } else {
           option.classList.toggle('green');
           updatePoints()
           setTimeout(() => {
@@ -94,12 +93,13 @@ function displayQuestion() {
     })
 }
 
-function nextQuestion() {
+function nextQuestion(err) {
   currentQuestionIndex++;
-  if(currentQuestionIndex === 1) {
-    container.innerHTML = `<h1 class="title-final">Quiz finalizado</h1>`
-  } else {
+  if(currentQuestionIndex < quizQuestions.length) {
     displayQuestion()
+  } else {
+     container.innerHTML = `<h1 class="title-final">Quiz finalizado</h1>
+     <p>Parabéns, você fez ${acertos} pontos</p>`
   }
 }
 
