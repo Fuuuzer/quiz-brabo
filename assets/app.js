@@ -34,12 +34,27 @@ let currentQuestionIndex = 0;
 let acertos = 0;
 let erros = 0;
 
+const savedQuestionIndex = localStorage.getItem('currentQuestionIndex');
+const savedPoints = localStorage.getItem('points');
+
+if (savedQuestionIndex !== null) {
+  currentQuestionIndex = parseInt(savedQuestionIndex, 10);
+}
+
+if (savedPoints !== null) {
+  acertos = parseInt(savedPoints, 10);
+  points.innerText= `Pontos: ${acertos}`;
+}
+
+
 function updatePoints(currentPoints) {
   if (currentPoints === 0) {
     points.innerText = `Pontos: ${currentPoints}`;
+    localStorage.setItem('points', 0);
   } else {
-    acertos++; 
+    acertos++;
     points.innerText = `Pontos: ${acertos}`;
+    localStorage.setItem('points', acertos);
   }
 }
 
@@ -54,6 +69,7 @@ function displayQuestion() {
     <ul class="options">
       ${question.options.map((option, index) => `<li class="option" data-index="${index}">${option}</li>`).join('')}
     </ul>`;
+
 
     let answered = false;
 
@@ -71,6 +87,8 @@ function displayQuestion() {
             erros = 0;
             acertos = 0;
             currentQuestionIndex = 0;
+            localStorage.setItem('currentQuestionIndex', 0);
+            localStorage.setItem('points', 0);
             setTimeout(() => {
               displayQuestion()
               updatePoints(0)
@@ -93,13 +111,20 @@ function displayQuestion() {
     })
 }
 
-function nextQuestion(err) {
+function nextQuestion() {
   currentQuestionIndex++;
+
+  localStorage.setItem('currentQuestionIndex', currentQuestionIndex);
+  localStorage.setItem('points', acertos)
+
   if(currentQuestionIndex < quizQuestions.length) {
     displayQuestion()
   } else {
      container.innerHTML = `<h1 class="title-final">Quiz finalizado</h1>
      <p>Parabéns, você fez ${acertos} pontos</p>`
+
+     localStorage.removeItem('currentQuestionIndex');
+     localStorage.removeItem('points');
   }
 }
 
