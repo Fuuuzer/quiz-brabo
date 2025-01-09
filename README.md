@@ -12,7 +12,9 @@ Consegui entender um pouco mais sobre classes e constructor functions, estou apr
 
 ### O que estou fazendo atualmente
 
-- **Sistema de pontuação**: Sistema que faz a contagem de pontos do usuário
+- **Sistema de pontuação**: Sistema que faz a contagem de pontos do usuário (concluído)
+- **Salvar dados no LocalStorage**: Poder dar refresh na página e o quiz voltar de onde parou (concluído)
+- **Botão para tentar de novo o quiz**: Não voltar para a tela de escolher o usuario quando quiser apenas tentar de novo(andamento)
 - **Melhorias planejadas**: Introduzir mais recursos como:
   - Poder decidir um nome de usuário;
   - Implementar um sistema de "ranking" com as melhores pontuações salvas no local storage.
