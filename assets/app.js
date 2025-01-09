@@ -6,13 +6,13 @@ const options = document.querySelector('.options');
 const points = document.querySelector('.points');
 const btnStart = document.querySelector('.btn');
 const inputUser = document.querySelector('.input-username');
-const containerStart = document.querySelector ('.container-start')
+const containerStart = document.querySelector ('.container-start');
 
 let currentQuestionIndex = 0;
 let acertos = 0;
 let erros = 0;
 let errorMessage = containerStart.querySelector('.error-message');
-let quizStarded = false;
+let quizStarted = false;
 
 points.style.display = 'none';
 
@@ -31,7 +31,8 @@ function handleClick() {
       errorMessage.remove()
     }
 
-    quizStarded = true;
+    quizStarted = true;
+    saveToStorage('quizStarted', true)
     points.style.display = 'block';
     points.innerText = `Pontos: 0`
     containerStart.classList.add('hidden');
@@ -55,37 +56,40 @@ function loadFromStorage(key, defaultValue = null) {
 
 const savedQuestionIndex = loadFromStorage('currentQuestionIndex');
 const savedPoints = loadFromStorage('points');
+const savedQuizStarted = loadFromStorage('quizStarted', false);
 
-if (savedQuestionIndex !== null) {
-  currentQuestionIndex = parseInt(savedQuestionIndex, 10);
-}
+if (savedQuizStarted) {
 
-if (savedPoints !== null) {
-  acertos = parseInt(savedPoints, 10);
-  points.innerText= `Pontos: ${acertos}`;
+  currentQuestionIndex = savedQuestionIndex ?? 0;
+  acertos = savedPoints ?? 0;
+  points.innerText = `Pontos: ${acertos}`;
+
+  quizStarted = true;
+
+  containerStart.classList.add('hidden');
+  points.style.display = 'block';
+  container.classList.remove('hidden');
+  displayQuestion()
+} else {
+  containerStart.classList.remove('hidden')
+  container.classList.add('hidden');
+  points.style.display = 'none';
 }
 
 
 function updatePoints(currentPoints) {
-  if (!quizStarded) return
+  if (!quizStarted) return;
 
-  if (currentPoints === 0) {
-    points.innerText = `Pontos: ${currentPoints}`;
-    saveToStorage('points', 0);
-  } else {
     acertos++;
     points.innerText = `Pontos: ${acertos}`;
     saveToStorage('points', acertos);
-  }
 }
 
 function removeQuiz() {
   container.classList.add('hidden');
   points.classList.add('hidden');
-
-  const btnStart = document.querySelector('.btn');
-  btnStart.addEventListener('click', handleClick);
   containerStart.classList.add('visible')
+  containerStart.classList.remove('hidden')
 }
 
 function displayQuestion() {
@@ -121,8 +125,7 @@ function displayQuestion() {
             erros = 0;
             acertos = 0;
             currentQuestionIndex = 0;
-            saveToStorage('currentQuestionIndex', 0);
-            saveToStorage('points', 0);
+            localStorage.clear();
 
             setTimeout(() => {
               removeQuiz();
