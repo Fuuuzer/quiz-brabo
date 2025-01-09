@@ -29,3 +29,5 @@ Consegui entender um pouco mais sobre classes e constructor functions, estou apr
    git clone https://github.com/Fuuuzer/quiz-brabo.git
    
 2. Abra o arquivo index.html no navegador para ver o site em funcionamento.
+
+![quiz-video](https://github.com/user-attachments/assets/f15922d9-6335-410e-9735-ee15c6aded6d)
