@@ -12,10 +12,12 @@ let currentQuestionIndex = 0;
 let acertos = 0;
 let erros = 0;
 let errorMessage = containerStart.querySelector('.error-message');
+let quizStarded = false;
 
-// console.log(inputUser)
+points.style.display = 'none';
 
-btnStart.addEventListener('click', () => {
+
+function handleClick() {
   if (inputUser.value === '') {
     if (!errorMessage) {
       errorMessage = document.createElement('p');
@@ -23,19 +25,36 @@ btnStart.addEventListener('click', () => {
       containerStart.appendChild(errorMessage)
     }
     errorMessage.innerText = 'É necessário digitar um nome'
-    containerStart.appendChild(notUsername)
     } else {
+      inputUser.value = '';
     if (errorMessage) {
       errorMessage.remove()
     }
+
+    quizStarded = true;
+    points.style.display = 'block';
+    points.innerText = `Pontos: 0`
+    containerStart.classList.add('hidden');
+    containerStart.classList.remove('visible');
+    container.classList.remove('hidden');
+    points.classList.remove('hidden');
     displayQuestion()
-    updatePoints(0)
   }
+}
 
-});
+btnStart.addEventListener('click', handleClick);
 
-const savedQuestionIndex = localStorage.getItem('currentQuestionIndex');
-const savedPoints = localStorage.getItem('points');
+function saveToStorage(key, value) {
+  localStorage.setItem(key, JSON.stringify(value))
+}
+
+function loadFromStorage(key, defaultValue = null) {
+  const value = localStorage.getItem(key);
+  return value ? JSON.parse(value) : defaultValue;
+}
+
+const savedQuestionIndex = loadFromStorage('currentQuestionIndex');
+const savedPoints = loadFromStorage('points');
 
 if (savedQuestionIndex !== null) {
   currentQuestionIndex = parseInt(savedQuestionIndex, 10);
@@ -48,14 +67,25 @@ if (savedPoints !== null) {
 
 
 function updatePoints(currentPoints) {
+  if (!quizStarded) return
+
   if (currentPoints === 0) {
     points.innerText = `Pontos: ${currentPoints}`;
-    localStorage.setItem('points', 0);
+    saveToStorage('points', 0);
   } else {
     acertos++;
     points.innerText = `Pontos: ${acertos}`;
-    localStorage.setItem('points', acertos);
+    saveToStorage('points', acertos);
   }
+}
+
+function removeQuiz() {
+  container.classList.add('hidden');
+  points.classList.add('hidden');
+
+  const btnStart = document.querySelector('.btn');
+  btnStart.addEventListener('click', handleClick);
+  containerStart.classList.add('visible')
 }
 
 function displayQuestion() {
@@ -83,22 +113,24 @@ function displayQuestion() {
 
         if(!question.isCorrect(i)) {
           erros++;
+          option.classList.add('red');
+          setTimeout(() => {
+            displayQuestion()
+          }, 1500)
           if(erros === 2) {
             erros = 0;
             acertos = 0;
             currentQuestionIndex = 0;
-            localStorage.setItem('currentQuestionIndex', 0);
-            localStorage.setItem('points', 0);
+            saveToStorage('currentQuestionIndex', 0);
+            saveToStorage('points', 0);
+
             setTimeout(() => {
-              displayQuestion()
-              updatePoints(0)
+              removeQuiz();
+              points.style.display = 'none';
+
+              points.innerText = `Pontos: 0`;
             }, 1500);
           }
-
-          option.classList.toggle('red');
-          setTimeout(() => {
-            displayQuestion()
-          }, 1500)
         } else {
           option.classList.toggle('green');
           updatePoints()
@@ -114,8 +146,8 @@ function displayQuestion() {
 function nextQuestion() {
   currentQuestionIndex++;
 
-  localStorage.setItem('currentQuestionIndex', currentQuestionIndex);
-  localStorage.setItem('points', acertos)
+  saveToStorage('currentQuestionIndex', currentQuestionIndex);
+  saveToStorage('points', acertos);
 
   if(currentQuestionIndex < quizQuestions.length) {
     displayQuestion()

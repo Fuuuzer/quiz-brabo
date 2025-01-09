@@ -38,7 +38,8 @@ main {
 }
 
 .container-start {
-  height: 100%;
+  margin: 5rem 10px 0px 10px;
+  padding: 0 10px;
   /* border: solid red; */
   display: flex;
   justify-content: center;
@@ -190,4 +191,12 @@ main {
   100% {
     transform: translate3d(0, 0, 0);
   }
+}
+
+.hidden {
+  display: none;
+}
+
+.container-start.visible {
+  display: flex;
 }
