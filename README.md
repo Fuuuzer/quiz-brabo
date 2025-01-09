@@ -23,8 +23,12 @@ Consegui entender um pouco mais sobre classes e constructor functions, estou apr
 
 - **HTML/CSS**: Estruturação e estilização da página.
 - **JavaScript**: Lógica do frontend, interações com o usuário e demais coisas.
+- 
+## Quer ver como o projeto está ficando?
+Acesse https://fuuuzer.github.io/quiz-brabo/
 
 ## Como rodar o projeto
+
 
 1. Clone o repositório:
    ```bash
