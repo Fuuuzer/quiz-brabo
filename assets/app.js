@@ -1,8 +1,6 @@
 import { quizQuestions } from "./quiz-questions.js";
 
 const container = document.querySelector('main');
-const title = document.querySelector('.question-title');
-const options = document.querySelector('.options');
 const points = document.querySelector('.points');
 const btnStart = document.querySelector('.btn');
 const inputUser = document.querySelector('.input-username');
@@ -13,6 +11,7 @@ let acertos = 0;
 let erros = 0;
 let errorMessage = containerStart.querySelector('.error-message');
 let quizStarted = false;
+let quizEnded = false;
 
 points.style.display = 'none';
 
@@ -26,13 +25,13 @@ function handleClick() {
     }
     errorMessage.innerText = 'É necessário digitar um nome'
     } else {
-      inputUser.value = '';
     if (errorMessage) {
       errorMessage.remove()
     }
 
     quizStarted = true;
-    saveToStorage('quizStarted', true)
+    saveToStorage('quizStarted', true);
+    saveToStorage('username', inputUser.value);
     points.style.display = 'block';
     points.innerText = `Pontos: 0`
     containerStart.classList.add('hidden');
@@ -40,8 +39,11 @@ function handleClick() {
     container.classList.remove('hidden');
     points.classList.remove('hidden');
     displayQuestion()
+    inputUser.value = '';
+
   }
 }
+
 
 btnStart.addEventListener('click', handleClick);
 
@@ -77,7 +79,7 @@ if (savedQuizStarted) {
 }
 
 
-function updatePoints(currentPoints) {
+function updatePoints() {
   if (!quizStarted) return;
 
     acertos++;
@@ -85,14 +87,29 @@ function updatePoints(currentPoints) {
     saveToStorage('points', acertos);
 }
 
-function removeQuiz() {
-  container.classList.add('hidden');
-  points.classList.add('hidden');
-  containerStart.classList.add('visible')
-  containerStart.classList.remove('hidden')
+function failQuiz() {
+  quizEnded = true;
+  const username = loadFromStorage('username');
+  const pontosFinal = loadFromStorage('points');
+
+  switch (true) {
+    case pontosFinal <= 2:
+      container.innerHTML = `<h1 class="title-final">HAHAHAAH HORRIVEL</h1>
+    <p>Eai ${username} otario, cê fez só ${acertos} pontos kkkkkkkkkkkkkk</p>`;
+      break;
+    case pontosFinal <= 5:
+      container.innerHTML = `<h1 class="title-final">Melhorou agora</h1>
+    <p>${username} otario, cê fez apenas ${acertos} pontos hihihih</p>`;
+      break;
+      case pontosFinal >= 10:
+      container.innerHTML = `<h1 class="title-final">Ta porra cê é braboL</h1>
+    <p>Eai ${username} genio, cê fez ${acertos} pontos, parabéns</p>`;
+      break;
+  }
 }
 
 function displayQuestion() {
+  if (quizEnded) return;
   const question = quizQuestions[currentQuestionIndex];
 
   container.innerHTML = `
@@ -123,16 +140,15 @@ function displayQuestion() {
           }, 1500)
           if(erros === 2) {
             erros = 0;
-            acertos = 0;
             currentQuestionIndex = 0;
-            localStorage.clear();
-
             setTimeout(() => {
-              removeQuiz();
+              failQuiz()
+              acertos = 0;
+              localStorage.clear();
               points.style.display = 'none';
 
               points.innerText = `Pontos: 0`;
-            }, 1500);
+            }, 1000);
           }
         } else {
           option.classList.toggle('green');
