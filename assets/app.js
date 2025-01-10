@@ -32,6 +32,7 @@ function handleClick() {
     quizStarted = true;
     saveToStorage('quizStarted', true);
     saveToStorage('username', inputUser.value);
+    saveToStorage('tries', erros)
     points.style.display = 'block';
     points.innerText = `Pontos: 0`
     containerStart.classList.add('hidden');
@@ -94,17 +95,39 @@ function failQuiz() {
 
   switch (true) {
     case pontosFinal <= 2:
-      container.innerHTML = `<h1 class="title-final">HAHAHAAH HORRIVEL</h1>
-    <p>Eai ${username} otario, cê fez só ${acertos} pontos kkkkkkkkkkkkkk</p>`;
+      container.innerHTML = `<h1 class="title-final">BURRO</h1>
+    <p>Eai ${username} otario, cê fez só ${acertos} pontos kkkkkkkkkkkkkk</p>
+    <button class='btn btn-retry'>Tentar novamente</button>`;
       break;
     case pontosFinal <= 5:
-      container.innerHTML = `<h1 class="title-final">Melhorou agora</h1>
-    <p>${username} otario, cê fez apenas ${acertos} pontos hihihih</p>`;
+      container.innerHTML = `<h1 class="title-final">Meio burro</h1>
+    <p>${username} otario, cê fez apenas ${acertos} pontos hihihih</p>
+    <button class='btn btn-retry'>Tentar novamente</button>`;
       break;
       case pontosFinal >= 10:
-      container.innerHTML = `<h1 class="title-final">Ta porra cê é braboL</h1>
-    <p>Eai ${username} genio, cê fez ${acertos} pontos, parabéns</p>`;
+      container.innerHTML = `<h1 class="title-final">GENIO ALBERT EINSTEIN</h1>
+    <p>Parabéms ${username}, você completou o quiz!</p>
+    <button class='btn btn-retry'>Tentar novamente</button>`;
       break;
+  }
+
+  const retryButton = document.querySelector('.btn-retry');
+  console.log(retryButton)
+
+  if (retryButton) {
+
+    retryButton.addEventListener('click', () => {
+      console.log('oi')
+      localStorage.removeItem('currentQuestionIndex');
+
+      quizEnded = false;
+      acertos = 0;
+      erros = 0;
+      currentQuestionIndex = 0;
+
+      displayQuestion()
+      points.style.display = 'block';
+    })
   }
 }
 
@@ -133,6 +156,7 @@ function displayQuestion() {
         // lógica para o usuario nao poder clicar varias x
 
         if(!question.isCorrect(i)) {
+          saveToStorage('tries', erros)
           erros++;
           option.classList.add('red');
           setTimeout(() => {
@@ -144,7 +168,9 @@ function displayQuestion() {
             setTimeout(() => {
               failQuiz()
               acertos = 0;
-              localStorage.clear();
+              localStorage.removeItem('points');
+              localStorage.removeItem('currentQuestionIndex');
+              localStorage.removeItem('tries');
               points.style.display = 'none';
 
               points.innerText = `Pontos: 0`;
@@ -162,6 +188,9 @@ function displayQuestion() {
     })
 }
 
+const savedTries = loadFromStorage('tries', 0);
+erros = savedTries;
+
 function nextQuestion() {
   currentQuestionIndex++;
 
@@ -178,3 +207,5 @@ function nextQuestion() {
      localStorage.removeItem('points');
   }
 }
+
+localStorage.clear()
