@@ -17,7 +17,7 @@ Consegui entender um pouco mais sobre classes e constructor functions, estou apr
 - **Botão para tentar de novo o quiz**: Não voltar para a tela de escolher o usuario quando quiser apenas tentar de novo(concluído)
 - **Mensagem personalizada no final**: Dependendo da quantidade de acertos que você tiver a mensagem final irá mudar(concluído)
 - **Melhorias planejadas**: Introduzir mais recursos como:
-  -  ̶P̶o̶d̶e̶r̶ ̶d̶e̶c̶i̶d̶i̶r̶ ̶u̶m̶ ̶n̶o̶m̶e̶ ̶d̶e̶ ̶u̶s̶u̶á̶r̶i̶o̶;̶
+  - ~Poder decidir um nome de usuário;~
   - Implementar um sistema de "ranking" com as melhores pontuações salvas no local storage.
 
 ## Tecnologias utilizadas
