@@ -107,18 +107,23 @@ function failQuiz() {
   switch (true) {
     case acertos <= 2:
       container.innerHTML = `<h1 class="title-final">BURRO</h1>
-    <p>Eai ${username} otario, cê fez só ${acertos} pontos kkkkkkkkkkkkkk</p>
-    <button class='btn btn-retry'>Tentar novamente</button>`;
+        <p>Otario, você fez só ${acertos} pontos kkkkkkkkkkkkkk</p>
+        <button class='btn btn-retry'>Tentar novamente</button>`;
       break;
     case acertos <= 5:
       container.innerHTML = `<h1 class="title-final">Meio burro</h1>
-    <p>${username} otario, cê fez apenas ${acertos} pontos hihihih</p>
-    <button class='btn btn-retry'>Tentar novamente</button>`;
+        <p>${username} otario, cê fez apenas ${acertos} pontos hihihih</p>
+        <button class='btn btn-retry'>Tentar novamente</button>`;
       break;
+      case acertos <= 9:
+      container.innerHTML = `<h1 class="title-final">Meio esperto</h1>
+        <p>Parabéms ${username}, você fez ${acertos}</p>
+        <button class='btn btn-retry'>Tentar novamente</button>`;
+    break;
       case acertos >= 10:
       container.innerHTML = `<h1 class="title-final">GENIO ALBERT EINSTEIN</h1>
-    <p>Parabéms ${username}, você completou o quiz!</p>
-    <button class='btn btn-retry'>Tentar novamente</button>`;
+        <p>Parabéms ${username}, você completou o quiz!</p>
+        <button class='btn btn-retry'>Tentar novamente</button>`;
       break;
   }
 
@@ -227,3 +232,5 @@ function nextQuestion() {
      localStorage.removeItem('points');
   }
 }
+
+// EU NAO AGUENTO MAAAAAAAAAAIIIIIIIIIIIIIIIISSSSSSSSSSSSSSSSSSSSSSS
