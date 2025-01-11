@@ -99,6 +99,8 @@ function updatePoints() {
 
 function failQuiz() {
   quizEnded = true;
+  container.classList.add('animation');
+
   const username = loadFromStorage('username');
 
 
@@ -151,6 +153,7 @@ displayQuestion()
 
 function displayQuestion() {
   if (quizEnded) return;
+  container.classList.add('animation')
   const question = quizQuestions[currentQuestionIndex];
 
   container.innerHTML = `
@@ -184,6 +187,8 @@ function displayQuestion() {
             erros = 0;
             currentQuestionIndex = 0;
             points.style.display = 'none';
+            container.classList.remove('animation')
+            
             setTimeout(() => {
               
               acertos = 0;
@@ -196,6 +201,7 @@ function displayQuestion() {
           }
         } else {
           option.classList.toggle('green');
+          container.classList.remove('animation')
           updatePoints()
           setTimeout(() => {
             nextQuestion();
@@ -208,7 +214,6 @@ function displayQuestion() {
 
 function nextQuestion() {
   currentQuestionIndex++;
-
   saveToStorage('currentQuestionIndex', currentQuestionIndex);
   saveToStorage('points', acertos);
 
