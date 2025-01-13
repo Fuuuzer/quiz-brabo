@@ -128,7 +128,6 @@ function failQuiz() {
   }
 
   const retryButton = document.querySelector('.btn-retry');
-  console.log(retryButton)
 
   if (retryButton) {
     retryButton.addEventListener('click', resetQuiz)

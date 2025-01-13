@@ -19,13 +19,18 @@ body {
   background: rgb(147, 80, 209);
 }
 
-header h1 {
-  height: 100%;
+header {
+  display: flex;
+  justify-content: center;
   text-align: center;
-  font-size: 3rem;
+  font-size: 1.75rem;
   color: white;
   /* margin: 1rem; */
   background: #5223a8;
+}
+
+header h1 {
+  cursor: pointer;
 }
 
 main {
