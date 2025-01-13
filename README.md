@@ -15,7 +15,7 @@ Consegui entender um pouco mais sobre classes e constructor functions, estou apr
 - **Sistema de pontuação**: Sistema que faz a contagem de pontos do usuário (concluído)
 - **Salvar dados no LocalStorage**: Poder dar refresh na página e o quiz voltar de onde parou (concluído)
 - **Botão para tentar de novo o quiz**: Não voltar para a tela de escolher o usuario quando quiser apenas tentar de novo(concluído)
-- **Mensagem personalizada no final**: Dependendo da quantidade de acertos que você tiver a mensagem final irá mudar(concluído)
+- **Mensagem personalizada no final**: Dependendo da quantidade de acertos que o usuario tiver a mensagem final irá mudar(concluído)
 - **Melhorias planejadas**: Introduzir mais recursos como:
   - ~Poder decidir um nome de usuário;~
   - Implementar um sistema de "ranking" com as melhores pontuações salvas no local storage.
@@ -24,7 +24,7 @@ Consegui entender um pouco mais sobre classes e constructor functions, estou apr
 
 - **HTML/CSS**: Estruturação e estilização da página.
 - **JavaScript**: Lógica do frontend, interações com o usuário e demais coisas.
-- 
+- **NodeJS**: (Futuramente).
 ## Quer ver como o projeto está ficando?
 Acesse https://fuuuzer.github.io/quiz-brabo/
 
