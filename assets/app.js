@@ -48,7 +48,11 @@ function startQuiz() {
   }
 }
 
-
+inputUser.addEventListener('keydown', (e) => {
+  if(e.key === 'Enter'){
+    startQuiz()
+  }
+})
 btnStart.addEventListener('click', startQuiz);
 title.addEventListener('click', () => {
   localStorage.clear();
