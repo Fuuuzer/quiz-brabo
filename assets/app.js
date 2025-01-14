@@ -153,8 +153,6 @@ function resetQuiz() {
 displayQuestion()
 }
 
-// localStorage.clear()
-
 function displayQuestion() {
   if (quizEnded) return;
   container.classList.add('animation')
