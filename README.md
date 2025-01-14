@@ -18,6 +18,7 @@ Consegui entender um pouco mais sobre classes e constructor functions, estou apr
 - **Mensagem personalizada no final**: Dependendo da quantidade de acertos que o usuario tiver a mensagem final irá mudar(concluído)
 - **Melhorias planejadas**: Introduzir mais recursos como:
   - ~Poder decidir um nome de usuário;~
+  - ~Ao clicar enter na tela de escolher um nome ele inicia o quiz~
   - Implementar um sistema de "ranking" com as melhores pontuações salvas no local storage.
 
 ## Tecnologias utilizadas
