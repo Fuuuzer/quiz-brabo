@@ -38,4 +38,5 @@ Acesse https://fuuuzer.github.io/quiz-brabo/
    
 2. Abra o arquivo index.html no navegador para ver o site em funcionamento.
 
-![quiz-video](https://github.com/user-attachments/assets/f15922d9-6335-410e-9735-ee15c6aded6d)
+![quizzzz](https://github.com/user-attachments/assets/95adf977-234a-48e7-9d4e-43e4969b0bf5)
+
