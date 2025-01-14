@@ -18,6 +18,8 @@ points.style.display = 'none';
 
 
 function startQuiz() {
+  const userName = inputUser.value.trim();
+
   if (inputUser.value === '') {
     if (!errorMessage) {
       errorMessage = document.createElement('p');
@@ -25,6 +27,13 @@ function startQuiz() {
       containerStart.appendChild(errorMessage)
     }
     errorMessage.innerText = 'É necessário digitar um nome'
+    } else if (userName.length < 3){
+      if (!errorMessage) {
+        errorMessage = document.createElement('p');
+        errorMessage.classList.add('error-message');
+        containerStart.appendChild(errorMessage)
+      }
+      errorMessage.innerText = 'O nome deve ter pelo menos 3 caracteres';
     } else {
     if (errorMessage) {
       errorMessage.remove()
@@ -53,6 +62,7 @@ inputUser.addEventListener('keydown', (e) => {
     startQuiz()
   }
 })
+
 btnStart.addEventListener('click', startQuiz);
 title.addEventListener('click', () => {
   localStorage.clear();
@@ -121,12 +131,12 @@ function failQuiz() {
       break;
       case acertos <= 9:
       container.innerHTML = `<h1 class="title-final">Meio esperto</h1>
-        <p>Parabéms ${username}, você fez ${acertos}</p>
+        <p>Parabéms ${username}, você fez ${acertos} pontos</p>
         <button class='btn btn-retry'>Tentar novamente</button>`;
     break;
       case acertos >= 10:
       container.innerHTML = `<h1 class="title-final">GENIO ALBERT EINSTEIN</h1>
-        <p>Parabéms ${username}, você completou o quiz!</p>
+        <p>Parabéms ${username}, você é LITERALMENTE um jenio</p>
         <button class='btn btn-retry'>Tentar novamente</button>`;
       break;
   }
