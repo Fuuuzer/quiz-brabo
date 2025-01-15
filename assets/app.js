@@ -68,7 +68,10 @@ title.addEventListener('click', () => {
   localStorage.clear();
   containerStart.classList.remove('hidden');
   container.classList.add('hidden');
-  points.style.display = 'none'
+  points.style.display = 'none';
+
+  currentQuestionIndex = 0;
+
 })
 
 function saveToStorage(key, value) {
