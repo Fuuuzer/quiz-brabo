@@ -167,8 +167,6 @@ function resetQuiz() {
 displayQuestion()
 }
 
-// localStorage.clear()
-
 function displayQuestion() {
   if (quizEnded) return;
   container.classList.add('animation')
@@ -204,18 +202,17 @@ function displayQuestion() {
           if(erros === 2) {
             erros = 0;
             currentQuestionIndex = 0;
-            points.style.display = 'none';
             container.classList.remove('animation')
             
-            setTimeout(() => {
-              
+            setTimeout(() => {              
+              points.style.display = 'none';
               acertos = 0;
               localStorage.removeItem('points');
               localStorage.removeItem('currentQuestionIndex');
               saveToStorage('tries', erros);
               points.innerText = `Pontos: 0`;
+              failQuiz()           
             }, 1000);
-            failQuiz()           
           }
         } else {
           option.classList.toggle('green');
