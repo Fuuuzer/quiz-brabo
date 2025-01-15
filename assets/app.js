@@ -209,7 +209,6 @@ function displayQuestion() {
             
             setTimeout(() => {              
               points.style.display = 'none';
-              acertos = 0;
               localStorage.removeItem('points');
               localStorage.removeItem('currentQuestionIndex');
               saveToStorage('tries', erros);
