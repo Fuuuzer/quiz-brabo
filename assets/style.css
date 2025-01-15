@@ -75,6 +75,7 @@ main {
   border: none;
   border-radius: 6px;
   margin-top: 10px;
+  cursor: pointer;
 }
 
 .container-start p {

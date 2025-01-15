@@ -21,22 +21,25 @@ function startQuiz() {
   const userName = inputUser.value.trim();
 
   if (inputUser.value === '') {
+
     if (!errorMessage) {
       errorMessage = document.createElement('p');
       errorMessage.classList.add('error-message');
       containerStart.appendChild(errorMessage)
     }
+    errorMessage.style.display = 'block'
     errorMessage.innerText = 'É necessário digitar um nome'
-    } else if (userName.length < 3){
-      if (!errorMessage) {
-        errorMessage = document.createElement('p');
-        errorMessage.classList.add('error-message');
-        containerStart.appendChild(errorMessage)
-      }
+  } else if (userName.length < 3){
+    if (!errorMessage) {
+      errorMessage = document.createElement('p');
+      errorMessage.classList.add('error-message');
+      containerStart.appendChild(errorMessage)
+    }
+      errorMessage.style.display = 'block'
       errorMessage.innerText = 'O nome deve ter pelo menos 3 caracteres';
-    } else {
+  } else {
     if (errorMessage) {
-      errorMessage.remove()
+      errorMessage.style.display = 'none'
     }
 
     quizStarted = true;
@@ -52,7 +55,7 @@ function startQuiz() {
     container.classList.remove('hidden');
     points.classList.remove('hidden');
     displayQuestion()
-    inputUser.value = '';
+    // inputUser.value = '';
 
   }
 }
@@ -65,12 +68,20 @@ inputUser.addEventListener('keydown', (e) => {
 
 btnStart.addEventListener('click', startQuiz);
 title.addEventListener('click', () => {
-  localStorage.clear();
+
+  quizEnded = false;
+  quizStarted = false;
+  currentQuestionIndex = 0;
+  acertos = 0;
+  erros = 0;
+
+
   containerStart.classList.remove('hidden');
   container.classList.add('hidden');
   points.style.display = 'none';
-
-  currentQuestionIndex = 0;
+  inputUser.value = '';
+  
+  localStorage.clear();
 
 })
 
@@ -165,7 +176,7 @@ function resetQuiz() {
     currentQuestionIndex = 0;
 
     points.innerText = 'Pontos: 0';
-    points.style.display = 'block'
+    points.style.display = 'block';
 
 displayQuestion()
 }
