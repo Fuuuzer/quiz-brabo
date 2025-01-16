@@ -6,6 +6,7 @@ const btnStart = document.querySelector('.btn');
 const inputUser = document.querySelector('.input-username');
 const containerStart = document.querySelector ('.container-start');
 const title = document.querySelector('.principal-title');
+const user = document.querySelector('.user');
 
 let currentQuestionIndex = 0;
 let acertos = 0;
@@ -21,22 +22,25 @@ function startQuiz() {
   const userName = inputUser.value.trim();
 
   if (inputUser.value === '') {
+
     if (!errorMessage) {
       errorMessage = document.createElement('p');
       errorMessage.classList.add('error-message');
       containerStart.appendChild(errorMessage)
     }
+    errorMessage.style.display = 'block'
     errorMessage.innerText = 'É necessário digitar um nome'
-    } else if (userName.length < 3){
-      if (!errorMessage) {
-        errorMessage = document.createElement('p');
-        errorMessage.classList.add('error-message');
-        containerStart.appendChild(errorMessage)
-      }
+  } else if (userName.length < 3){
+    if (!errorMessage) {
+      errorMessage = document.createElement('p');
+      errorMessage.classList.add('error-message');
+      containerStart.appendChild(errorMessage)
+    }
+      errorMessage.style.display = 'block'
       errorMessage.innerText = 'O nome deve ter pelo menos 3 caracteres';
-    } else {
+  } else {
     if (errorMessage) {
-      errorMessage.remove()
+      errorMessage.style.display = 'none'
     }
 
     quizStarted = true;
@@ -51,8 +55,9 @@ function startQuiz() {
     containerStart.classList.remove('visible');
     container.classList.remove('hidden');
     points.classList.remove('hidden');
+    user.innerText = `${userName}`;
     displayQuestion()
-    inputUser.value = '';
+    // inputUser.value = '';
 
   }
 }
@@ -65,11 +70,29 @@ inputUser.addEventListener('keydown', (e) => {
 
 btnStart.addEventListener('click', startQuiz);
 title.addEventListener('click', () => {
+<<<<<<< HEAD
   containerStart.classList.remove('hidden');
   container.classList.add('hidden');
   points.style.display = 'none';
   currentQuestionIndex = 0;
   localStorage.clear();
+=======
+
+  quizEnded = false;
+  quizStarted = false;
+  currentQuestionIndex = 0;
+  acertos = 0;
+  erros = 0;
+
+
+  containerStart.classList.remove('hidden');
+  container.classList.add('hidden');
+  points.style.display = 'none';
+  inputUser.value = '';
+  
+  localStorage.clear();
+
+>>>>>>> 9a486168a76f7fa60bc9f755d5ed0fcf12659f16
 })
 
 function saveToStorage(key, value) {
@@ -112,18 +135,24 @@ function updatePoints() {
     saveToStorage('points', acertos);
 }
 
+const username = loadFromStorage('username');
+
 function failQuiz() {
   quizEnded = true;
   container.classList.add('animation');
 
-  const username = loadFromStorage('username');
 
 
   switch (true) {
     case acertos <= 2:
+      if(acertos = 1){
+        container.innerHTML = `<h1 class="title-final">BURRO</h1>
+        <p>Otario, você fez só ${acertos} ponto kkkkkkkkkkkkkk</p>
+        <button class='btn btn-retry'>Tentar novamente</button>`;
+      } else {
       container.innerHTML = `<h1 class="title-final">BURRO</h1>
         <p>Otario, você fez só ${acertos} pontos kkkkkkkkkkkkkk</p>
-        <button class='btn btn-retry'>Tentar novamente</button>`;
+        <button class='btn btn-retry'>Tentar novamente</button>`;}
       break;
     case acertos <= 5:
       container.innerHTML = `<h1 class="title-final">Meio burro</h1>
@@ -163,7 +192,7 @@ function resetQuiz() {
     currentQuestionIndex = 0;
 
     points.innerText = 'Pontos: 0';
-    points.style.display = 'block'
+    points.style.display = 'block';
 
 displayQuestion()
 }
@@ -189,6 +218,7 @@ function displayQuestion() {
     options.forEach((option, i) => {
       option.addEventListener('click', function() {
 
+
         if (answered) return;
         answered = true;
         // lógica para o usuario nao poder clicar varias x
@@ -207,7 +237,6 @@ function displayQuestion() {
             
             setTimeout(() => {              
               points.style.display = 'none';
-              acertos = 0;
               localStorage.removeItem('points');
               localStorage.removeItem('currentQuestionIndex');
               saveToStorage('tries', erros);
@@ -226,6 +255,7 @@ function displayQuestion() {
 
       })
     })
+
 }
 
 function nextQuestion() {
