@@ -6,6 +6,7 @@ const btnStart = document.querySelector('.btn');
 const inputUser = document.querySelector('.input-username');
 const containerStart = document.querySelector ('.container-start');
 const title = document.querySelector('.principal-title');
+const user = document.querySelector('.user');
 
 let currentQuestionIndex = 0;
 let acertos = 0;
@@ -54,6 +55,7 @@ function startQuiz() {
     containerStart.classList.remove('visible');
     container.classList.remove('hidden');
     points.classList.remove('hidden');
+    user.innerText = `${userName}`;
     displayQuestion()
     // inputUser.value = '';
 
@@ -125,18 +127,24 @@ function updatePoints() {
     saveToStorage('points', acertos);
 }
 
+const username = loadFromStorage('username');
+
 function failQuiz() {
   quizEnded = true;
   container.classList.add('animation');
 
-  const username = loadFromStorage('username');
 
 
   switch (true) {
     case acertos <= 2:
+      if(acertos = 1){
+        container.innerHTML = `<h1 class="title-final">BURRO</h1>
+        <p>Otario, você fez só ${acertos} ponto kkkkkkkkkkkkkk</p>
+        <button class='btn btn-retry'>Tentar novamente</button>`;
+      } else {
       container.innerHTML = `<h1 class="title-final">BURRO</h1>
         <p>Otario, você fez só ${acertos} pontos kkkkkkkkkkkkkk</p>
-        <button class='btn btn-retry'>Tentar novamente</button>`;
+        <button class='btn btn-retry'>Tentar novamente</button>`;}
       break;
     case acertos <= 5:
       container.innerHTML = `<h1 class="title-final">Meio burro</h1>
@@ -202,6 +210,7 @@ function displayQuestion() {
     options.forEach((option, i) => {
       option.addEventListener('click', function() {
 
+
         if (answered) return;
         answered = true;
         // lógica para o usuario nao poder clicar varias x
@@ -238,6 +247,7 @@ function displayQuestion() {
 
       })
     })
+
 }
 
 function nextQuestion() {
