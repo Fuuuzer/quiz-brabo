@@ -65,10 +65,11 @@ inputUser.addEventListener('keydown', (e) => {
 
 btnStart.addEventListener('click', startQuiz);
 title.addEventListener('click', () => {
-  localStorage.clear();
   containerStart.classList.remove('hidden');
   container.classList.add('hidden');
-  points.style.display = 'none'
+  points.style.display = 'none';
+  currentQuestionIndex = 0;
+  localStorage.clear();
 })
 
 function saveToStorage(key, value) {
