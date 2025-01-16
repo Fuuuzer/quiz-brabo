@@ -2,6 +2,7 @@ import { quizQuestions } from "./quiz-questions.js";
 
 const container = document.querySelector('main');
 const points = document.querySelector('.points');
+const pointsContainer = document.querySelector('.pontos');
 const btnStart = document.querySelector('.btn');
 const inputUser = document.querySelector('.input-username');
 const containerStart = document.querySelector ('.container-start');
@@ -56,6 +57,8 @@ function startQuiz() {
     container.classList.remove('hidden');
     points.classList.remove('hidden');
     user.innerText = `Nome: ${userName}`;
+    pointsContainer.classList.remove('hidden')
+    pointsContainer.classList.add('a')
     displayQuestion()
     inputUser.value = '';
 
@@ -74,6 +77,7 @@ title.addEventListener('click', () => {
   container.classList.add('hidden');
   points.style.display = 'none';
   currentQuestionIndex = 0;
+  user.style.display = 'none';
   // user.style.display = 'none';
   localStorage.clear();
 })
@@ -105,7 +109,6 @@ if (savedQuizStarted) {
   displayQuestion()
 } else {
   containerStart.classList.remove('hidden')
-  container.classList.add('hidden');
   points.style.display = 'none';
 }
 
@@ -129,27 +132,27 @@ function failQuiz() {
   switch (true) {
     case acertos <= 2:
       if(acertos = 1){
-        container.innerHTML = `<h1 class="title-final">BURRO</h1>
-        <p>Otario, você fez só ${acertos} ponto kkkkkkkkkkkkkk</p>
+        container.innerHTML = `<h1 class="title-final">Ruim</h1>
+        <p>Poxa, você fez só ${acertos} ponto kkkkkkkkkkkkkk</p>
         <button class='btn btn-retry'>Tentar novamente</button>`;
       } else {
-      container.innerHTML = `<h1 class="title-final">BURRO</h1>
-        <p>Otario, você fez só ${acertos} pontos kkkkkkkkkkkkkk</p>
+      container.innerHTML = `<h1 class="title-final">bleh</h1>
+        <p>Poxa, você fez só ${acertos} pontos kkkk</p>
         <button class='btn btn-retry'>Tentar novamente</button>`;}
       break;
     case acertos <= 5:
-      container.innerHTML = `<h1 class="title-final">Meio burro</h1>
-        <p>${username} otario, cê fez apenas ${acertos} pontos hihihih</p>
+      container.innerHTML = `<h1 class="title-final">Neandertal</h1>
+        <p>Poxa ${username}, você fez apenas ${acertos} pontos hihihih</p>
         <button class='btn btn-retry'>Tentar novamente</button>`;
       break;
       case acertos <= 9:
-      container.innerHTML = `<h1 class="title-final">Meio esperto</h1>
+      container.innerHTML = `<h1 class="title-final">Brabo</h1>
         <p>Parabéms ${username}, você fez ${acertos} pontos</p>
         <button class='btn btn-retry'>Tentar novamente</button>`;
     break;
       case acertos >= 10:
       container.innerHTML = `<h1 class="title-final">GENIO ALBERT EINSTEIN</h1>
-        <p>Parabéms ${username}, você é LITERALMENTE um jenio</p>
+        <p>Congratilations ${username}, você é LITERALMENTE um jenio</p>
         <button class='btn btn-retry'>Tentar novamente</button>`;
       break;
   }
@@ -163,10 +166,14 @@ function failQuiz() {
 }
 
 function resetQuiz() {
+  const username = loadFromStorage('username')
+  
     localStorage.removeItem('currentQuestionIndex');
     localStorage.removeItem('points');
     localStorage.removeItem('quizStarted');
     localStorage.removeItem('tries');
+
+    user.innerText = `Nome: ${username}`;
   
     quizEnded = false;
     quizStarted = true;
@@ -184,6 +191,7 @@ function displayQuestion() {
   if (quizEnded) return;
   container.classList.add('animation')
   const question = quizQuestions[currentQuestionIndex];
+  user.style.display = 'block';
 
   container.innerHTML = `
     <div class="question">
@@ -224,6 +232,7 @@ function displayQuestion() {
               localStorage.removeItem('currentQuestionIndex');
               saveToStorage('tries', erros);
               points.innerText = `Pontos: 0`;
+              user.style.display = 'none'
               failQuiz()           
             }, 1000);
           }
@@ -250,7 +259,8 @@ function nextQuestion() {
     displayQuestion()
   } else {
      container.innerHTML = `<h1 class="title-final">Quiz finalizado</h1>
-     <p>Parabéns, você fez ${acertos} pontos</p>`
+     <p>Parabéns, você fez ${acertos} pontos</p>
+     <button class='btn btn-retry'>Tentar novamente</button>`
 
      localStorage.removeItem('currentQuestionIndex');
      localStorage.removeItem('points');

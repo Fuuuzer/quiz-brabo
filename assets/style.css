@@ -24,7 +24,7 @@ header {
   display: flex;
   justify-content: center;
   text-align: center;
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   color: white;
   background: #5223a8;
 }
@@ -71,6 +71,7 @@ main {
   color: white;
   font-size: 1.25rem;
   display: block;
+  font-weight: bold;
 }
 
 .btn {
@@ -92,12 +93,17 @@ main {
 }
 
 .pontos {
-  width: 97vw;
   display: flex;
   flex-direction: column;
-  margin-top: 30px;
-  margin: 0px 10px;
+  margin: 0px 0px 0px 0px;
   padding-left: 10px;
+  /* background: #1e37c5b2; */
+}
+
+.user,
+.points {
+  margin-left: 10px;
+  padding: 5px;
 }
 
 .points {
@@ -107,9 +113,9 @@ main {
 }
 
 .question-title {
-  font-size: 2rem;
+  font-size: 1.75rem;
   color: rgb(252, 226, 252);
-  margin-bottom: 10px;
+  margin: 10px 0px;
 }
 
 .options {
@@ -129,7 +135,7 @@ main {
   font-size: 1.125rem;
   align-items: center;
   justify-content: center;
-  min-height: 200px;
+  min-height: 170px;
   padding: 10px;
   font-weight: 500;
   border-radius: 6px;
@@ -219,6 +225,10 @@ main {
   100% {
     transform: translate3d(0, 0, 0);
   }
+}
+
+.pontos {
+  animation: nextQuestion 0.5s ease-in-out;
 }
 
 @keyframes nextQuestion {
