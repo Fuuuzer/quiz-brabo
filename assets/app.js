@@ -55,9 +55,9 @@ function startQuiz() {
     containerStart.classList.remove('visible');
     container.classList.remove('hidden');
     points.classList.remove('hidden');
-    user.innerText = `${userName}`;
+    user.innerText = `Nome: ${userName}`;
     displayQuestion()
-    // inputUser.value = '';
+    inputUser.value = '';
 
   }
 }
@@ -70,29 +70,12 @@ inputUser.addEventListener('keydown', (e) => {
 
 btnStart.addEventListener('click', startQuiz);
 title.addEventListener('click', () => {
-<<<<<<< HEAD
   containerStart.classList.remove('hidden');
   container.classList.add('hidden');
   points.style.display = 'none';
   currentQuestionIndex = 0;
+  // user.style.display = 'none';
   localStorage.clear();
-=======
-
-  quizEnded = false;
-  quizStarted = false;
-  currentQuestionIndex = 0;
-  acertos = 0;
-  erros = 0;
-
-
-  containerStart.classList.remove('hidden');
-  container.classList.add('hidden');
-  points.style.display = 'none';
-  inputUser.value = '';
-  
-  localStorage.clear();
-
->>>>>>> 9a486168a76f7fa60bc9f755d5ed0fcf12659f16
 })
 
 function saveToStorage(key, value) {
