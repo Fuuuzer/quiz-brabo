@@ -56,7 +56,7 @@ function startQuiz() {
     containerStart.classList.remove('visible');
     container.classList.remove('hidden');
     points.classList.remove('hidden');
-    user.innerText = `Nome: ${userName}`;
+    user.innerHTML = `Nome: <span>${userName}</span>`;
     pointsContainer.classList.remove('hidden')
     pointsContainer.classList.add('a')
     displayQuestion()
