@@ -5,7 +5,7 @@ const points = document.querySelector('.points');
 const pointsContainer = document.querySelector('.pontos');
 const btnStart = document.querySelector('.btn');
 const inputUser = document.querySelector('.input-username');
-const containerStart = document.querySelector ('.container-start');
+const containerStart = document.querySelector('.container-start');
 const title = document.querySelector('.principal-title');
 const user = document.querySelector('.user');
 
@@ -31,14 +31,14 @@ function startQuiz() {
     }
     errorMessage.style.display = 'block'
     errorMessage.innerText = 'É necessário digitar um nome'
-  } else if (userName.length < 3){
+  } else if (userName.length < 3) {
     if (!errorMessage) {
       errorMessage = document.createElement('p');
       errorMessage.classList.add('error-message');
       containerStart.appendChild(errorMessage)
     }
-      errorMessage.style.display = 'block'
-      errorMessage.innerText = 'O nome deve ter pelo menos 3 caracteres';
+    errorMessage.style.display = 'block'
+    errorMessage.innerText = 'O nome deve ter pelo menos 3 caracteres';
   } else {
     if (errorMessage) {
       errorMessage.style.display = 'none'
@@ -66,7 +66,7 @@ function startQuiz() {
 }
 
 inputUser.addEventListener('keydown', (e) => {
-  if(e.key === 'Enter'){
+  if (e.key === 'Enter') {
     startQuiz()
   }
 })
@@ -116,9 +116,9 @@ if (savedQuizStarted) {
 function updatePoints() {
   if (!quizStarted) return;
 
-    acertos++;
-    points.innerText = `Pontos: ${acertos}`;
-    saveToStorage('points', acertos);
+  acertos++;
+  points.innerText = `Pontos: ${acertos}`;
+  saveToStorage('points', acertos);
 }
 
 const username = loadFromStorage('username');
@@ -131,26 +131,27 @@ function failQuiz() {
 
   switch (true) {
     case acertos <= 2:
-      if(acertos = 1){
+      if (acertos = 1) {
         container.innerHTML = `<h1 class="title-final">Ruim</h1>
         <p>Poxa, você fez só ${acertos} ponto kkkkkkkkkkkkkk</p>
         <button class='btn btn-retry'>Tentar novamente</button>`;
       } else {
-      container.innerHTML = `<h1 class="title-final">bleh</h1>
+        container.innerHTML = `<h1 class="title-final">bleh</h1>
         <p>Poxa, você fez só ${acertos} pontos kkkk</p>
-        <button class='btn btn-retry'>Tentar novamente</button>`;}
+        <button class='btn btn-retry'>Tentar novamente</button>`;
+      }
       break;
     case acertos <= 5:
       container.innerHTML = `<h1 class="title-final">Neandertal</h1>
         <p>Poxa ${username}, você fez apenas ${acertos} pontos hihihih</p>
         <button class='btn btn-retry'>Tentar novamente</button>`;
       break;
-      case acertos <= 9:
+    case acertos <= 9:
       container.innerHTML = `<h1 class="title-final">Brabo</h1>
         <p>Parabéms ${username}, você fez ${acertos} pontos</p>
         <button class='btn btn-retry'>Tentar novamente</button>`;
-    break;
-      case acertos >= 10:
+      break;
+    case acertos >= 10:
       container.innerHTML = `<h1 class="title-final">GENIO ALBERT EINSTEIN</h1>
         <p>Congratilations ${username}, você é LITERALMENTE um jenio</p>
         <button class='btn btn-retry'>Tentar novamente</button>`;
@@ -167,24 +168,24 @@ function failQuiz() {
 
 function resetQuiz() {
   const username = loadFromStorage('username')
-  
-    localStorage.removeItem('currentQuestionIndex');
-    localStorage.removeItem('points');
-    localStorage.removeItem('quizStarted');
-    localStorage.removeItem('tries');
 
-    user.innerText = `Nome: ${username}`;
-  
-    quizEnded = false;
-    quizStarted = true;
-    acertos = 0;
-    erros = 0;
-    currentQuestionIndex = 0;
+  localStorage.removeItem('currentQuestionIndex');
+  localStorage.removeItem('points');
+  localStorage.removeItem('quizStarted');
+  localStorage.removeItem('tries');
 
-    points.innerText = 'Pontos: 0';
-    points.style.display = 'block';
+  user.innerText = `Nome: ${username}`;
 
-displayQuestion()
+  quizEnded = false;
+  quizStarted = true;
+  acertos = 0;
+  erros = 0;
+  currentQuestionIndex = 0;
+
+  points.innerText = 'Pontos: 0';
+  points.style.display = 'block';
+
+  displayQuestion()
 }
 
 function displayQuestion() {
@@ -203,50 +204,50 @@ function displayQuestion() {
     </ul>`;
 
 
-    let answered = false;
+  let answered = false;
 
-    const options = document.querySelectorAll('.option');
-    options.forEach((option, i) => {
-      option.addEventListener('click', function() {
+  const options = document.querySelectorAll('.option');
+  options.forEach((option, i) => {
+    option.addEventListener('click', function () {
 
 
-        if (answered) return;
-        answered = true;
-        // lógica para o usuario nao poder clicar varias x
+      if (answered) return;
+      answered = true;
+      // lógica para o usuario nao poder clicar varias x
 
-        if(!question.isCorrect(i)) {
-          erros++;
-          saveToStorage('tries', erros)
-          option.classList.add('red');
-          setTimeout(() => {
-            displayQuestion()
-          }, 1500)
-          if(erros === 2) {
-            erros = 0;
-            currentQuestionIndex = 0;
-            container.classList.remove('animation')
-            
-            setTimeout(() => {              
-              points.style.display = 'none';
-              localStorage.removeItem('points');
-              localStorage.removeItem('currentQuestionIndex');
-              saveToStorage('tries', erros);
-              points.innerText = `Pontos: 0`;
-              user.style.display = 'none'
-              failQuiz()           
-            }, 1000);
-          }
-        } else {
-          option.classList.toggle('green');
+      if (!question.isCorrect(i)) {
+        erros++;
+        saveToStorage('tries', erros)
+        option.classList.add('red');
+        setTimeout(() => {
+          displayQuestion()
+        }, 1500)
+        if (erros === 2) {
+          erros = 0;
+          currentQuestionIndex = 0;
           container.classList.remove('animation')
-          updatePoints()
-          setTimeout(() => {
-            nextQuestion();
-          }, 1500)
-        }
 
-      })
+          setTimeout(() => {
+            points.style.display = 'none';
+            localStorage.removeItem('points');
+            localStorage.removeItem('currentQuestionIndex');
+            saveToStorage('tries', erros);
+            points.innerText = `Pontos: 0`;
+            user.style.display = 'none'
+            failQuiz()
+          }, 1000);
+        }
+      } else {
+        option.classList.toggle('green');
+        container.classList.remove('animation')
+        updatePoints()
+        setTimeout(() => {
+          nextQuestion();
+        }, 1500)
+      }
+
     })
+  })
 
 }
 
@@ -255,15 +256,15 @@ function nextQuestion() {
   saveToStorage('currentQuestionIndex', currentQuestionIndex);
   saveToStorage('points', acertos);
 
-  if(currentQuestionIndex < quizQuestions.length) {
+  if (currentQuestionIndex < quizQuestions.length) {
     displayQuestion()
   } else {
-     container.innerHTML = `<h1 class="title-final">Quiz finalizado</h1>
+    container.innerHTML = `<h1 class="title-final">Quiz finalizado</h1>
      <p>Parabéns, você fez ${acertos} pontos</p>
      <button class='btn btn-retry'>Tentar novamente</button>`
 
-     localStorage.removeItem('currentQuestionIndex');
-     localStorage.removeItem('points');
+    localStorage.removeItem('currentQuestionIndex');
+    localStorage.removeItem('points');
   }
 }
 
