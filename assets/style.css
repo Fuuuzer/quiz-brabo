@@ -106,6 +106,10 @@ main {
   padding: 5px;
 }
 
+.user span{
+  font-weight: 300;
+}
+
 .points {
   font-size: 1.25rem;
   font-weight: bold;

@@ -56,7 +56,7 @@ function startQuiz() {
     containerStart.classList.remove('visible');
     container.classList.remove('hidden');
     points.classList.remove('hidden');
-    user.innerText = `Nome: ${userName}`;
+    user.innerHTML = `Nome: <span>${userName}</span>`;
     pointsContainer.classList.remove('hidden')
     pointsContainer.classList.add('a')
     displayQuestion()
@@ -131,7 +131,8 @@ function failQuiz() {
 
   switch (true) {
     case acertos <= 2:
-      if (acertos = 1) {
+
+      if(acertos === 1){
         container.innerHTML = `<h1 class="title-final">Ruim</h1>
         <p>Poxa, você fez só ${acertos} ponto kkkkkkkkkkkkkk</p>
         <button class='btn btn-retry'>Tentar novamente</button>`;
