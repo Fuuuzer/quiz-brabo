@@ -125,6 +125,7 @@ const username = loadFromStorage('username');
 
 function failQuiz() {
   quizEnded = true;
+  const username = loadFromStorage('username');
   container.classList.add('animation');
 
 
@@ -134,7 +135,7 @@ function failQuiz() {
 
       if(acertos === 1){
         container.innerHTML = `<h1 class="title-final">Ruim</h1>
-        <p>Poxa, você fez só ${acertos} ponto kkkkkkkkkkkkkk</p>
+        <p>Poxa, ${username} você fez só ${acertos} ponto kkkkkkkkkkkkkk</p>
         <button class='btn btn-retry'>Tentar novamente</button>`;
       } else {
         container.innerHTML = `<h1 class="title-final">bleh</h1>
