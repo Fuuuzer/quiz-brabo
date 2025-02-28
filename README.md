@@ -16,9 +16,8 @@ Consegui entender um pouco mais sobre classes e constructor functions, estou apr
 - **Salvar dados no LocalStorage**: Poder dar refresh na página e o quiz voltar de onde parou (concluído)
 - **Botão para tentar de novo o quiz**: Não voltar para a tela de escolher o usuario quando quiser apenas tentar de novo(concluído)
 - **Mensagem personalizada no final**: Dependendo da quantidade de acertos que o usuario tiver a mensagem final irá mudar(concluído)
+- **Poder decidir um nome de usuário**: Autoexplicativo (Concluído)
 - **Melhorias planejadas**: Introduzir mais recursos como:
-  - ~Poder decidir um nome de usuário;~
-  - ~Ao clicar enter na tela de escolher um nome ele inicia o quiz~
   - Implementar um sistema de "ranking" com as melhores pontuações salvas no local storage.
 
 ## Tecnologias utilizadas
